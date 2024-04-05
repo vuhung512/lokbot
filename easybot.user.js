@@ -6,6 +6,8 @@
 // @author       HUNZU98
 // @match        https://play.leagueofkingdoms.com/*
 // @grant        none
+// @downloadURL https://github.com/vuhung512/lokbot/raw/main/easybot.user.js
+// @updateURL    https://github.com/vuhung512/lokbot/raw/main/easybot.user.js
 // ==/UserScript==
 
 
