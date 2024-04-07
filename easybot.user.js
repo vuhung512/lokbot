@@ -18,11 +18,10 @@
 
 async function main(){
     let version=  7
-    notifyMe("ver",version,false)
     
-var alliancedata = {};
-alliancedata.alliance_name=null
+let alliancedata = {};
 let connection = null;
+notifyMe("ver",version,false)
 
 
 function notifyMe(title,mess,keep=false) {
@@ -39,7 +38,7 @@ function notifyMe(title,mess,keep=false) {
     if (Notification.permission !== 'granted')
         Notification.requestPermission();
     else {
-        if (alliancedata.alliance_name)
+        if ( alliancedata.alliancedata)
         title =alliancedata.alliance_name
         var notification = new Notification(
             thistime()+title, {
