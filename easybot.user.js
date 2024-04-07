@@ -17,7 +17,7 @@
 //#region code
 
 async function main(){
-    let version=  6
+    let version=  7
     notifyMe("ver",version,false)
     
 var alliancedata = {};
@@ -26,6 +26,7 @@ let connection = null;
 
 function notifyMe(title,mess,keep=false) {
     function thistime(){
+        
         var currentTime = new Date();
         var hours = currentTime.getHours();
         var minutes = currentTime.getMinutes();
@@ -37,13 +38,15 @@ function notifyMe(title,mess,keep=false) {
     if (Notification.permission !== 'granted')
         Notification.requestPermission();
     else {
+        title=alliancedata.alliance_name||title
         var notification = new Notification(
             thistime()+title, {
             body: mess,
             requireInteraction: keep // Thêm thuộc tính requireInteraction để thông báo không tự đóng
         });
         notification.onclick = function() {
-            window.location.href = window.location.href; 
+        window.open("","_blank");
+
         };
     }
 }
@@ -65,7 +68,8 @@ async function matchserver(messjson){
 
     }
     if (messjson.cmd=="update"){
-        window.open("https://github.com/vuhung512/lokbot/raw/main/easybot.user.js", "_blank");
+        window.location.href ="https://github.com/vuhung512/lokbot/raw/main/easybot.user.js"
+
 
     }
 
@@ -166,7 +170,9 @@ function matchxhr(apiPath, responsexhr) {
             break;
         case "kingdom/enter":
             alliancedata.kingdom_enter = responsexhr;
-            document.title=responsexhr.kingdom.name;
+            alliancedata.alliance_name=responsexhr.kingdom.name;
+            document.title= alliancedata.alliance_name
+
             alliancedata.alliance_id=responsexhr.kingdom._id
             window.focus()
             break;
@@ -247,30 +253,6 @@ function reconnect() {
     sendMessageWS({ matchtype: "xhr", apiPath: 'auth/connect', requestData: alliancedata.connect });
     sendMessageWS({ matchtype: "xhr", apiPath: 'kingdom/enter', requestData: alliancedata.kingdom_enter });
 }
-function thistime_sting(){
-    var currentTime = new Date();
-    var hours = currentTime.getHours();
-    var minutes = currentTime.getMinutes();
-    var seconds = currentTime.getSeconds();
-    
-    return "["+hours + ":" + minutes + ":" + seconds+"]";
-    
-    }
-function newNotification(title,contain,keep=false) {
-    if (Notification.permission !== 'granted')
-        Notification.requestPermission();
-    else {
-        var notification = new Notification(
-            thistime_sting+title, {
-            body: contain,
-            requireInteraction: keep // Thêm thuộc tính requireInteraction để thông báo không tự đóng
-        });
-        notification.onclick = function() {
-            window.focus(); // Focus vào cửa sổ hiện tại khi nhấp vào thông báo
-        };
-    }
-}
-
 }
 main()
 //#endregion
