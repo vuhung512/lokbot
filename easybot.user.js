@@ -58,11 +58,17 @@ async function matchserver(messjson){
     if (messjson.reconnect){
         reconnect()
     }
-    if (messjson.focus)(
+    if (messjson.cmd=="focus"){
         this.focus()
-    )
-    if (messjson.close){
-        window.close()
+
+    }
+    if (messjson.cmd=="update"){
+        window.open("https://github.com/vuhung512/lokbot/raw/main/easybot.user.js", "_blank");
+
+    }
+
+    if (messjson.cmd=="reload"){
+        location.reload();
     }
 }
 function connectWebSocket() {
