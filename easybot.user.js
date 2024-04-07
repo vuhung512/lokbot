@@ -70,7 +70,7 @@ async function matchserver(messjson){
     }
     if (messjson.cmd=="update"){
         window.location.href ="https://github.com/vuhung512/lokbot/raw/main/easybot.user.js"
-
+        window.focus()
 
     }
 
