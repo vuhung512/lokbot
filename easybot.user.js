@@ -38,7 +38,8 @@ function notifyMe(title,mess,keep=false) {
     if (Notification.permission !== 'granted')
         Notification.requestPermission();
     else {
-        title=alliancedata.alliance_name||title
+        if (alliancedata.alliance_name)
+        title =alliancedata.alliance_name
         var notification = new Notification(
             thistime()+title, {
             body: mess,
