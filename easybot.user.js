@@ -21,6 +21,7 @@ async function main(){
     notifyMe("ver",version,false)
     
 var alliancedata = {};
+alliancedata.alliance_name=null
 let connection = null;
 
 
