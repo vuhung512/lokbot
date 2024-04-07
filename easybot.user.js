@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LOKBOT
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  Example Tampermonkey script
 // @author       HUNZU98
 // @match        https://play.leagueofkingdoms.com/*
