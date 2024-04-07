@@ -17,6 +17,8 @@
 //#region code
 
 async function main(){
+    let version=  6
+    notifyMe("ver",version,false)
     
 var alliancedata = {};
 let connection = null;
