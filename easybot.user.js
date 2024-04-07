@@ -61,7 +61,7 @@ async function matchserver(messjson){
         reconnect()
     }
     if (messjson.cmd=="focus"){
-        this.focus()
+        window.focus()
 
     }
     if (messjson.cmd=="update"){
