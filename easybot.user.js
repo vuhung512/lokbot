@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LOKBOT
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  Example Tampermonkey script
 // @author       HUNZU98
 // @match        https://play.leagueofkingdoms.com/*
@@ -9,6 +9,7 @@
 // @downloadURL https://github.com/vuhung512/lokbot/raw/main/easybot.user.js
 // @updateURL    https://github.com/vuhung512/lokbot/raw/main/easybot.user.js
 // ==/UserScript==
+
 
 
 (function() {
@@ -23,7 +24,39 @@ let alliancedata = {};
 let connection = null;
 notifyMe("ver",version,false)
 
-
+async function stop_visibilitychange(s){
+    // visibilitychange events are captured and stopped 
+    async function  delayseconds(seconds,toseconds=null) {
+        if (toseconds)
+        seconds = Math.floor(Math.random() * (toseconds - seconds + 1)) + seconds;
+    
+        return new Promise(resolve => {
+          const timeout = setTimeout(() => {
+            resolve();
+          }, seconds * 1000);
+        });
+    }
+    await delayseconds (s)
+    document.addEventListener("visibilitychange", function(e) {
+        e.stopImmediatePropagation();
+    }, true);
+    // document.visibilityState always returns false
+    Object.defineProperty(Document.prototype, "hidden", {
+        get: function hidden() {
+            return false;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    // document.visibilityState always returns "visible"
+    Object.defineProperty(Document.prototype, "visibilityState", {
+        get: function visibilityState() {
+            return "visible";
+        },
+        enumerable: true,
+        configurable: true
+    });
+}
 function notifyMe(title,mess,keep=false) {
     function thistime(){
         
@@ -142,6 +175,7 @@ function sendMessageWS(data) {
 }
 async function postapilok(api_path, postData) {
     try {
+        // has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
         const response = await fetch("https://lok-api-live.leagueofkingdoms.com/api/" + api_path, {
             method: 'POST',
             headers: {
@@ -151,6 +185,7 @@ async function postapilok(api_path, postData) {
             body: postData,
         });
         if (!response.ok) {
+            notifyMe("error","ERROR post",false)
             throw new Error(`HTTP Error: ${response.status}`);
         }
         const result = await response.text();
@@ -248,6 +283,7 @@ function startWebSocketListener() {
 startXHRListener();
 
 startWebSocketListener()
+stop_visibilitychange(10)
 
 function reconnect() {
     console.warn("RECONNECTING to AD")
