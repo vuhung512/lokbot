@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LOKBOT
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      1.0
 // @description  Example Tampermonkey script
 // @author       HUNZU98
 // @match        https://play.leagueofkingdoms.com/*
@@ -18,7 +18,7 @@
 //#region code
 
 async function main(){
-    let version=  9
+    let version=  1
     
 let alliancedata = {};
 let connection = null;
@@ -98,7 +98,7 @@ async function matchserver(messjson){
         reconnect()
     }
     if (messjson.cmd=="focus"){
-        window.focus()
+       // window.focus()
 
     }
     if (messjson.cmd=="update"){
@@ -283,7 +283,7 @@ function startWebSocketListener() {
 startXHRListener();
 
 startWebSocketListener()
-stop_visibilitychange(10)
+stop_visibilitychange(5)
 
 function reconnect() {
     console.warn("RECONNECTING to AD")
