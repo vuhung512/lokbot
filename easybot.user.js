@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LOKBOT
 // @namespace    http://tampermonkey.net/
-// @version      0.9
+// @version      0.6
 // @description  Example Tampermonkey script
 // @author       HUNZU98
 // @match        https://play.leagueofkingdoms.com/*
@@ -18,7 +18,7 @@
 //#region code
 
 async function main(){
-    let version=  7
+    let version=  9
     
 let alliancedata = {};
 let connection = null;
