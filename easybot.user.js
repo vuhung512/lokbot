@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LOKBOT
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Example Tampermonkey script
 // @author       HUNZU98
 // @match        https://play.leagueofkingdoms.com/*
@@ -18,24 +18,24 @@
 //#region code
 
 async function main(){
-    let version=  1
+    let version=  11
     
 let alliancedata = {};
 let connection = null;
 notifyMe("ver",version,false)
+async function  delayseconds(seconds,toseconds=null) {
+    if (toseconds)
+    seconds = Math.floor(Math.random() * (toseconds - seconds + 1)) + seconds;
 
+    return new Promise(resolve => {
+      const timeout = setTimeout(() => {
+        resolve();
+      }, seconds * 1000);
+    });
+}
 async function stop_visibilitychange(s){
     // visibilitychange events are captured and stopped 
-    async function  delayseconds(seconds,toseconds=null) {
-        if (toseconds)
-        seconds = Math.floor(Math.random() * (toseconds - seconds + 1)) + seconds;
-    
-        return new Promise(resolve => {
-          const timeout = setTimeout(() => {
-            resolve();
-          }, seconds * 1000);
-        });
-    }
+  
     await delayseconds (s)
     document.addEventListener("visibilitychange", function(e) {
         e.stopImmediatePropagation();
@@ -52,6 +52,13 @@ async function stop_visibilitychange(s){
     Object.defineProperty(Document.prototype, "visibilityState", {
         get: function visibilityState() {
             return "visible";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Document.prototype, "isFocus", {
+        get: function isFocus() {
+            return true;
         },
         enumerable: true,
         configurable: true
@@ -277,13 +284,18 @@ function startWebSocketListener() {
 
             }
         });
+        socket.addEventListener('open', function(event) {
+        });
+
+        socket.addEventListener('close', function(event) {
+        });
         return socket;
     };
 }
 startXHRListener();
 
 startWebSocketListener()
-stop_visibilitychange(5)
+stop_visibilitychange(1)
 
 function reconnect() {
     console.warn("RECONNECTING to AD")
