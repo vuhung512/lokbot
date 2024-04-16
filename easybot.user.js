@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LOKBOT
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Example Tampermonkey script
 // @author       HUNZU98
 // @match        https://play.leagueofkingdoms.com/*
@@ -18,7 +18,7 @@
 //#region code
 
 async function main(){
-    let version=  11
+    let version=  12
     
 let alliancedata = {};
 let connection = null;
@@ -37,9 +37,9 @@ async function stop_visibilitychange(s){
     // visibilitychange events are captured and stopped 
   
     await delayseconds (s)
-    document.addEventListener("visibilitychange", function(e) {
-        e.stopImmediatePropagation();
-    }, true);
+    // document.addEventListener("visibilitychange", function(e) {
+    //     e.stopImmediatePropagation();
+    // }, true);
     // document.visibilityState always returns false
     Object.defineProperty(Document.prototype, "hidden", {
         get: function hidden() {
